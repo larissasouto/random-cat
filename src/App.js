@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
-
+import Loading from './Loading';
 // function App() {
 //   return (
 //     <div className="App">
@@ -12,6 +12,7 @@ import './App.css';
 const App = () => {
   const [cat, setCat] = useState('');
   const [done, setDone] = useState(undefined);
+  const [loading, setLoading] = useState(undefined);
 
   useEffect(() => {
     getCat();
@@ -19,12 +20,17 @@ const App = () => {
 
   const getCat = () => {
     setDone(undefined);
+    setLoading(undefined);
+
     setTimeout(() => {
       fetch('https://aws.random.cat/meow')
         .then(res => res.json())
         .then(data => {
           setCat(data.file); //data.file -> traz imagem de gatos
-          setDone(true);
+          setLoading(true);
+          setTimeout(() => {
+            setDone(true);
+          }, 2000);
         });
 
     }, 1200);
@@ -36,7 +42,7 @@ const App = () => {
       <button onClick={getCat}>Get Cat</button>
       <div className="cat-pic">
         {!done ? (
-          <p>Loading...</p>
+          <Loading loading={loading} />
         ) : (
           <img src={cat} alt="cat"/>
         )}
