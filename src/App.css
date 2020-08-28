@@ -25,3 +25,13 @@
   object-fit: cover;
   border-radius: 5px;
 }
+
+@media (min-width: 320px) and (max-width: 480px) {
+  .App {
+    height: 100%;
+  }
+
+  .App {
+    width: 90%;
+  }
+}
